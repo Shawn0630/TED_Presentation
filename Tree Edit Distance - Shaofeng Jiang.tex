@@ -126,11 +126,72 @@ Western University \\ % Your institution for the title page
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
-\section{Definition}
+
+\section{Introduction}
 \begin{frame}
-\frametitle{Definition}
+\frametitle{Ordered Labelled Tree }
+An ordered labelled tree is a tree in which the nodes are labeled and the left-to-right order among siblings is significant. 
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{OrderedLabelledTree}
+	\label{Ordered Labelled Tree} 
+	\caption{Ordered Labelled Tree}
+	\centering
+\end{figure}
+The ordered labelled tree can represent:
 \begin{itemize}
-\item \textbf{Edit operation}
+\item an XML document
+\item a natural language parse 
+\item RNA secondary structure
+\item and so on...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Pattern Matching in Trees}
+Given a Pattern tree and a Data tree, we may want to match the pattern tree to the data tree.  
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{PatternMatchingInTrees}
+	\label{Pattern Matching in Trees} 
+	\caption{Pattern Matching in Trees}
+	\centering
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Pattern Matching in Trees}
+\begin{itemize}
+\item \textbf{Input:}
+Two labelled ordered trees $T$ and $P$.
+\item \textbf{Constraints: }
+\begin{itemize}
+\item One-to-one relationship
+\item Sibling order is preserved.
+\begin{figure}
+	\includegraphics[width=1.0\linewidth]{SiblingOrderPreserved}
+	\label{Sibling Order is Preserved} 
+	\centering
+\end{figure}
+\item Ancestor order is preserved.
+\begin{figure}
+	\includegraphics[width=1.0\linewidth]{AncestorOrderPreserved}
+	\label{Ancestor Order is Preserved} 
+	\centering
+\end{figure}
+\end{itemize}
+\item \textbf{Output:}
+Mapping between $T$ and $P$. 
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Edit Operations}
+\begin{itemize}
+\item Mappings on trees can be simplified into sequences of edit operations to transform one tree to another.
+\item Three valid edit operations supported:
 \begin{itemize}
 \item \textbf{Insertion.} insertion of a node.
 \begin{figure}
@@ -144,7 +205,7 @@ Western University \\ % Your institution for the title page
 	\label{Deletion} 
 	\centering
 \end{figure}
-\item \textbf{Substitution.} replace a label of a node by another label. This operation does not affect the skeleton of the tree.
+\item \textbf{Substitution.} replace a label of a node by another label. 
 \begin{figure}
 	\includegraphics[width=0.4\linewidth]{Replacement}
 	\label{Substitution} 
@@ -152,8 +213,21 @@ Western University \\ % Your institution for the title page
 \end{figure}
 \end{itemize}
 \end{itemize}
+\end{frame}				
+%------------------------------------------------
+\begin{frame}
+\frametitle{Cost of Mapping and the Edit Distance}
+\begin{itemize}
+\item The cost of a mapping is the sum of its insertion, deletion and substitutions.
+\begin{figure}
+	\includegraphics[width=0.7\linewidth]{EditDistance}
+	\label{Edit Sequence} 
+	\caption{The Edit Sequence and its Cost}
+	\centering
+\end{figure}
+\item The edit distance between two trees  $P$  and $D$  is the minimum cost to change $P $ to $D$  via a sequence of basic edit operations.
+\end{itemize}
 \end{frame}
-
 %------------------------------------------------
 \section{Notation}
 \begin{frame}
@@ -180,6 +254,29 @@ Western University \\ % Your institution for the title page
 \end{figure}
 \end{itemize}
 \end{columns}
+\end{itemize}
+Let T be a tree, 
+\begin{columns}[c]
+\column{.3\textwidth}
+\begin{itemize}
+\item \emph{$r(T)$}
+\item \emph{$T^{\comp}$}
+\item \emph{$lr(T)$}
+\item \emph{$rr(T)$}
+\end{itemize}
+\column{.7\textwidth}
+\begin{itemize}[]
+\item[]  the root of T
+\item[] $T - r(T)$
+\item[]  the root of the leftmost tree in the forest $T^{\comp}$
+\item[]  the root of the rightmost tree in the forest $T^{\comp}$
+\end{itemize}
+\end{columns}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Notation}
+\begin{itemize}
 \item \textbf{Forest} 
 \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
 \column{.45\textwidth} % Left column and width
@@ -202,62 +299,249 @@ Western University \\ % Your institution for the title page
 \end{itemize}
 \end{columns}
 \end{itemize}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Notation}
+Let F be a forest,
 \begin{columns}[c]
 \column{.3\textwidth}
 \begin{itemize}
-\item \emph{$\left\vert F \right\vert$} 
-\item \emph{$\#leaves(F)$} 
-\item \emph{$height(F)$} 
-\item \emph{$F(i)$} 
-\item \emph{$root(F)$}
-\item \emph{$F(i)^{\comp}$}
-\item \emph{$\#deg(i)$} 
-\item \emph{$\#anc(i)$} 
+\item \emph{$\left\vert F \right\vert$}
+\item \emph{$\#leaves(F)$}
+\item \emph{$F(i)$}
+\item \emph{$F - i$}
+\item \emph{$lr(F)$}
+\item \emph{$rr(F)$}
 \end{itemize}
 \column{.7\textwidth}
 \begin{itemize}[]
-\item[]  the number of nodes of the forest F.
-\item[]  the number of leaves of F.
-\item[]  the maximal height of the tress composing F.
-\item[]  the subtree of F rooted at node i.
-\item[]  the root of F.
-\item[] $F(i) - root(F(i))$
-\item[]  the number of direct children of node i.
-\item[]  the number of ancestors of node i. 
+\item[]  the number of nodes in the forest $F$
+\item[]  the number of leaves in the forest $F$
+\item[]  the sub-tree of F rooted at node i
+\item[]  the forest after deleting node i
+\item[]  the root of the leftmost tree in the forest $F$
+\item[]  the root of the rightmost tree in the forest $F$
 \end{itemize}
 \end{columns}
-
-\textbf{Note:} 
+\end{frame}
+%------------------------------------------------
+\section{Recursive Solution}
+\begin{frame}
+\frametitle{String Edit Distance and its Recursive Solution}
 \begin{itemize}
-\item each node is its own ancestor.
-\item  node j is a \textbf{proper ancestor} of node i if the path length from j to i is not 0.
+\item String edit distance is the minimum cost to change one string to another via a sequence of basic edit operations.
+\item The recursive solution of the string edit problem $d(S_1, S_2)$ is 
+\begin{equation*}
+d(S_1, S_2) = min \begin{cases}
+	  	d(S_1 - u , S_2) + \delta(u, \varnothing) \\ 
+      	d(S_1, S_2 - v) + \delta(\varnothing, v) \\ 
+    	d(S_1 - u, S_2 - v) + \delta(u, v) & \\ 
+    \end{cases}
+\end{equation*}
 \end{itemize}
 \end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{String Edit Distance and its Recursive Solution}
+\begin{itemize}
+\item If $u$ and $v$ is both the first element of string $S_1$ and $S_2$, then it is a leftmost decomposition.
+\begin{figure}
+	\includegraphics[width=0.8\linewidth]{StringRecursion1}
+	\label{String Leftmost Decomposition} 
+	\caption{String Leftmost Decomposition}
+	\centering
+\end{figure}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{String Edit Distance and its Recursive Solution}
+\begin{itemize}
+\item If $u$ and $v$ is both the last element of string $S_1$ and $S_2$, then it is a rightmost decomposition.
+\begin{figure}
+	\includegraphics[width=0.8\linewidth]{StringRecursion2}
+	\label{String Rightmost Decomposition} 
+	\caption{String Rightmost Decomposition}
+	\centering
+\end{figure}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Tree Edit Distance and its Recursive Solution}
+For tree-to-tree distance,
+Let $T_1$ and $T_2$ are both trees of the form $l(f)$ and $l'(f')$, 
+\begin{align*}
+d(l(f), l'(f')) = min \begin{cases}
+	  	d(f, l'(f')) + \delta(l, \varnothing) \\ 
+      	d(l(f), l'(f')) + \delta(\varnothing, l') \\ 
+    	d(f, f') + \delta(l, l') & \\
+    \end{cases}
+\end{align*}
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{TreeToTree}
+	\label{Tree-to-Tree Edit Distance} 
+	\caption{Tree-to-Tree Edit Distance}
+	\centering
+\end{figure}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Tree Edit Distance and its Recursive Solution}
+For forest-to-forest distance,
+Let $F_1$ and $F_2$ are both trees of the form $l(f) \comp t$ and $l'(f') \comp t'$, 
+\begin{align*}
+d(l(f) \comp t, l'(f') \comp t') = min \begin{cases}
+	  	d(f \comp t, l'(f') \comp t') + \delta(l, \varnothing) \\ 
+      	d(l(f) \comp t, f' \comp t') + \delta(\varnothing, l') \\ 
+    	d(f \comp t, f' \comp t') + \delta(l, l') & \\
+    \end{cases}
+\end{align*}
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{ForestLeftmostDecomposition}
+	\label{Forest-to-Forest Edit Distance} 
+	\caption{Forest-to-Forest Edit Distance}
+	\centering
+\end{figure}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Tree Edit Distance and its Recursive Solution}
+For forest-to-forest distance,
+Let $F_1$ and $F_2$ are both trees of the form $l(f) \comp t$ and $l'(f') \comp t'$, 
+\begin{align*}
+d(t \comp l(f), t' \comp l'(f')) = min \begin{cases}
+	  	d(t  \comp f, t' \comp l'(f')) + \delta(l, \varnothing) \\ 
+      	d(t \comp l(f), t'  \comp f') + \delta(\varnothing, l') \\ 
+    	d(t \comp f, t' \comp f') + \delta(l, l') & \\
+    \end{cases}
+\end{align*}
+\begin{figure}
+	\includegraphics[width=0.55\linewidth]{ForestRightmostDecomposition}
+	\label{Forest-to-Forest Edit Distance} 
+	\caption{Forest-to-Forest Edit Distance}
+	\centering
+\end{figure}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Relevant Sub-forests and Full Decomposition}
+\begin{itemize}
+\item  Relevant sub-forests
+\begin{figure}
+	\includegraphics[width=0.7\linewidth]{LeftRightDecomposition}
+	\centering
+\end{figure}
+\item The full decomposition
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{FullDecomposition}
+	\centering
+\end{figure}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Root-leaf Path and Relevant Sub-trees}
+\begin{itemize}
+\item Root-leaf path
+\begin{figure}
+	\includegraphics[width=0.2\linewidth]{RootLeafPath}
+	\centering
+\end{figure}
+\item Relevant sub-trees
+\begin{figure}
+	\includegraphics[width=0.3\linewidth]{RelevantSubtrees}
+	\centering
+\end{figure}
+\item Path decomposition
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{KleinAlgorithmExample}
+	\centering
+\end{figure}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Path Decomposition}
+\begin{itemize}
+\item Leftmost path decomposition
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{LeftmostPathDecomposition}
+	\centering
+\end{figure}
+\item Rightmost path decomposition
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{RightmostPathDecomposition}
+	\centering
+\end{figure}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Tree Indexing}
+\begin{itemize}
+\item $preOrder\_left\_to\_right\ \to\ preL\ $
+\item $preOrder\_right\_to\_left\ \to\ preR\ $
+\item $postOrder\_left\_to\_right\ \to\ postL\ $
+\item $postOrder\_right\_to\_left\ \to\ postR\ $
+\end{itemize}
+Consider a tree T(preL, preR, postL, postR)
 
+\begingroup
+
+\centering
+\begin{tikzpicture}[sibling distance=12em]
+  \node {B(1, 1, 5, 5)}
+    child {node {C(2, 5, 1, 4)}
+    }
+    child {node {D(3, 2, 4, 3)}
+      child{node{E(4, 4, 2, 2)}}
+      child {node {F(5, 3, 3, 1)}}
+    };
+\end{tikzpicture}
+
+\endgroup
+\textbf{Note:}
+\begin{itemize}
+\item $preL + postR= treeSize$
+\item $preR + postL= treeSize$
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Bottom-up Enumeration}
+Two orders of the enumeration of the path decomposition:
+\begin{itemize}
+\item LR-postorder enumeration%enumate the rightmost root in LR-postorder and fix it, then enumerate the leftmost root in RL-postorder.
+\begin{figure}
+	\includegraphics[width=0.9\linewidth]{LRPostorder}
+	\centering
+\end{figure}
+\item RL-postorder enumeration%fenumerate the leftmost root in RL-postorder and fix it, then enumerate the rightmost root in LR-postorder.
+\begin{figure}
+	\includegraphics[width=1.0\linewidth]{RLPostorder}
+	\centering
+\end{figure}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Bottom-up Enumeration}
+Two orders of the enumeration of the full decomposition:
+\begin{itemize}
+\item Prefix-suffix order%enumerate the rightmost root in LR-postorder and fix it, then enumerate the leftmost root in LR-postorder.
+\begin{figure}
+	\includegraphics[width=1.0\linewidth]{PrefixSuffix}
+	\centering
+\end{figure}
+\item Suffix-prefix order%enumerate the leftmost root in RL-postorder and fix it, then enuemrate the leftmost root in RL-postorder.
+\begin{figure}
+	\includegraphics[width=1.0\linewidth]{SuffixPrefix}
+	\centering
+\end{figure}
+\end{itemize}
+\end{frame}
 %------------------------------------------------
 \section{A Simple Algorithm}
 \subsection{Key Idea}
 \begin{frame}
-\frametitle{Key Idea(Naive Algorithm)}
-\textbf{LEMMA 1}
-
-Let $F_1(l(f) \comp t)$ and $F_2(l'(f') \comp t')$ be \textbf{ordered forest} and $\gamma$ be a metric cost function defined on labels. We have the forest distance $\delta(F_1, F_2)$
-\begin{flalign}
-&\delta(\theta, \theta) = 0 &\\
-&\delta(l(f) \comp t, \theta) = \delta(f \comp t, \theta) + \gamma(l \to \lambda) &\\
-&\delta(\theta, l'(f') \comp t') = \delta(\theta, f' \comp t') + \gamma(\lambda \to l') &\\
-&\delta(l(f) \comp t, l'(f') \comp t') = min \begin{cases}
-	  \delta(f \comp t, l'(f') \comp t') + \gamma(l \to \lambda) \\ %& \text{deletion of l,}\\
-      \delta(l(f) \comp t, f' \comp t') + \gamma(\lambda \to l') \\ %& \text{insertion of l',}\\
-     \delta(f, f') + \delta(t, t') + \gamma(l \to l') & \\ %\text{replacement of l by l'}
-      \end{cases} &
-\end{flalign}
 
 \end{frame}
 
@@ -2334,7 +2618,7 @@ left(Fp(v), v) for a given node v, where v is the index variable of loop A.
 	\centering
 \end{figure}
 \begin{figure}
-	\includegraphics[width=0.8\linewidth]{C'loop}
+	\includegraphics[width=0.8\linewidth]{Cloop}
 	\label{C'loop} 
 	\centering
 \end{figure}
