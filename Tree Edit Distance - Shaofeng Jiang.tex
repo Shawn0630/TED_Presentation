@@ -84,6 +84,7 @@
 \usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
 \usepackage{multicol} %Allows multi columns in content page.
 \usepackage{amssymb} %Allows empty set
+\usepackage[linesnumbered,ruled]{algorithm2e} %Allows pseudocode
 
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric}
@@ -542,10 +543,144 @@ Two orders of the enumeration of the full decomposition:
 \section{A Simple Algorithm}
 \subsection{Key Idea}
 \begin{frame}
+\frametitle{A Simple Algorithm}
+\textbf{Main Idea:}
 
+Enumerate each pairs of sub-forests in tree A and B in prefix-suffix post order or suffix-prefix post order.
+
+\textbf{Pseudocode:}
+\begin{figure}
+	\includegraphics[width=1.0\linewidth]{SimpleAlgorithm}
+	\centering
+\end{figure}
 \end{frame}
 
 %------------------------------------------------
+\begin{frame}
+\frametitle{A Simple Algorithm}
+\textbf{Implementation:}
+\begin{itemize}
+\item Implemented in dynamic programming.
+\item Runs in $\mathcal{O}(m^2n^2)$ time using $\mathcal{O}(m^2n^2)$ space.
+\begin{figure}
+	\includegraphics[width=0.5\linewidth]{ForestTable}
+	\centering
+\end{figure}
+\item The upper bound of the post-order enumeration method for the tree edit distance problem is $\mathcal{O}(n^4)$
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Improved Algorithmic Path Strategies}
+\textbf{Key Ideas:}
+\begin{itemize}
+\item Different path decomposition creates different number of relevant sub-forests.
+\item Take advantage of the overlap among sub-forests that are contained in the same sub-tree, and the overlap of sub-trees as well.
+\end{itemize}
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{LeftmostPathDecomposition}
+	\centering
+\end{figure}
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{RightmostPathDecomposition}
+	\centering
+\end{figure}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Zhang and Shasha's Algorithm}
+\textbf{Key Ideas:}
+\begin{itemize}
+\item Fixed direction in each recursive calls.
+\begin{itemize}
+\item Recursive right decomposition - leftmost paths.
+\item Recursive left decomposition - rightmost paths.
+\end{itemize}
+\end{itemize}
+\begin{figure}
+	\includegraphics[width=0.7\linewidth]{LeftmostPathandRightmostPath}
+	\centering
+\end{figure}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Zhang and Shasha's Algorithm}
+\textbf{Implementation:}
+\begin{itemize}
+\item Implemented via dynamic programming.
+\item Enumerates sub-trees pairs rooted at key roots.
+\begin{itemize}
+\item Leftmost paths: either tree root or has a left sibling
+\item Rightmost paths: either tree root or has a right sibling
+\end{itemize}
+\item Uses temporary tables to store forest-forest distance and a permanent tables to store tree-tree distance.
+\item Runs in $\mathcal{O}(\left\vert A \right\vert * \left\vert B \right\vert *min\{depth(A), leaves(A)\}*min\{depth(B), leaves(B)\})$ time and $\mathcal{O}(\left\vert A \right\vert * \left\vert B \right\vert)$ space. 
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Klein's Algorithm}
+\textbf{Key Ideas:}
+\begin{itemize}
+\item Zhang and Shasha's algorithm depends on shapes of trees.
+\item Heavy paths generate the least number of sub-forests on one tree.
+\end{itemize}
+\begin{figure}
+	\includegraphics[width=0.8\linewidth]{HeavyPaths}
+	\centering
+\end{figure}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Klein's Algorithm}
+\textbf{Implementation:}
+\begin{itemize}
+\item Implemented via dynamic programming.
+\item applies heavy paths to the larger tree and fully decomposes the smaller tree.
+\item Uses temporary tables to store forest-forest distance and a permanent tables to store tree-tree distance.
+\item Runs in $\mathcal{O}(\log(\left\vert A \right\vert) * \left\vert B \right\vert^2)$ time using $\mathcal{O}(\left\vert A \right\vert * \left\vert B \right\vert)$ space.
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Demaine's Algorithm}
+\textbf{Key Ideas:}
+\begin{itemize}
+\item Klein's algorithm consider the shape of one tree with no consideration on the other tree.
+\item Heavy paths can be applied on both trees. 
+\item Always applies heavy paths on the larger tree. 
+\end{itemize}
+\textbf{Implementation:}
+\begin{itemize}
+\item Implemented via dynamic programming.
+\item Runs in $\mathcal{O}(\left\vert A \right\vert ^2 \left\vert B \right\vert(1 + \log(\frac{\left\vert B \right\vert}{\left\vert A \right\vert}))$ time using $\mathcal{O}(\left\vert A \right\vert * \left\vert B \right\vert)$ space.
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Conclusion}
+\begin{table}
+			\centering
+			\begin{tabular}{l l l l}
+				\toprule
+				\textbf{} & \textbf{Time} & \textbf{Space} & \textbf{Comments}\\
+
+				\midrule
+				Simple Algorithm &  $\mathcal{O}(n^4)$ & $\mathcal{O}(n^4)$ & first algorithm\\
+				Zhang & $\mathcal{O}(n^2\log^2(n))$ & $\mathcal{O}(n^2)$ & efficient for balanced trees \\
+				Klein &  $\mathcal{O}(n^3\log(n))$ & $\mathcal{O}(n^2)$ &  no consider smaller trees\\
+				Demaine &  $\mathcal{O}(n^3)$ & $\mathcal{O}(n^2)$ & worse case is frequent\\
+			\end{tabular}
+		\caption{State-of-the-Art Algorithms in the Tree Edit Distance Problem}
+\end{table}
+\end{frame}
+%------------------------------------------------
+\section{Algorithmic Improvement}
+\begin{frame}
+\frametitle{Optimal Root-leaf Path}
+
+\end{frame}
+
 \subsection{Time Complexity}
 \begin{frame}
 \frametitle{Time Complexity(Naive Algorithm)}
