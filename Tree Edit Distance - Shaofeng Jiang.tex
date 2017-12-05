@@ -678,9 +678,146 @@ Enumerate each pairs of sub-forests in tree A and B in prefix-suffix post order 
 \section{Algorithmic Improvement}
 \begin{frame}
 \frametitle{Optimal Root-leaf Path}
+\textbf{Key Idea:}
+\begin{itemize}
+\item heavy paths is a kind of greedy algorithm which usually lead to the local optimum rather than global optimum.
+\item quantifies each possible paths and selects the path with the least number of sub-problems is selected
+\item implemented via dynamic programming.
+\item Preprocessing time  is bounded by $\mathcal{O}(\left\vert A \right\vert \left\vert B \right\vert)$
+% hard-coded stratgies are bad for specific tree shapes
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Vertical Reduction on Trees}
+\textbf{Key Ideas:}
+
+\begin{itemize}
+\item A large number of non-branching nodes can be compressed into one node.
+\begin{figure}
+	\includegraphics[width=0.4\linewidth]{VComponent}
+	\centering
+\end{figure}
+\item The compact representation of the original tree can aid in improving the running time for computing the tree edit distance.
+\begin{figure}
+	\includegraphics[width=0.5\linewidth]{VReduction}
+	\centering
+\end{figure}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{RNA}
+\begin{itemize}
+\item RNA is an essential molecule in organisms.
+\begin{itemize}
+\item Cellular organisms
+\item Viruses
+\end{itemize}
+%Cellular organisms use messenger RNA (mRNA) to convey genetic information.
+%Viruses encode their genetic information using an RNA genome.
+\item RNA is assembled as a chain of nucleotides. 
+\begin{figure}
+	\includegraphics[width=0.8\linewidth]{RNASequence}
+	\centering
+\end{figure}
+%can be represented as finite-length string over an alphabet. The alphabet is a set containing four symbols A U G C, which represents four kinds of nucleotides. 
+\item RNA is unstable. 
+%Unlike the double-strand struture of DNA, RNA is a single-strand and thus it is easaily fold back onto itself by means of hydrogen bonding, resulting in the secondary structure. 
+\begin{columns}[c]
+\column{.5\textwidth}
+\begin{figure}
+	\includegraphics[width=0.8\linewidth]{AUBasePair}
+	\centering
+\end{figure}
+\column{.5\textwidth}
+\begin{figure}
+	\includegraphics[width=0.8\linewidth]{GCBasePair}
+	\centering
+\end{figure}
+\end{columns}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{RNA Secondary Structure}
+\begin{itemize}
+\item a list of base pairs satisfies the following constraints:
+\begin{itemize}
+\item A base cannot participate in more than one base pair,
+\item No two base pairs cross.
+\end{itemize}
+\begin{figure}
+	\includegraphics[width=0.35\linewidth]{BasePairs}
+	\centering
+\end{figure}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{RNA Secondary Structure Representation}
+\begin{itemize}
+\item String representation
+\begin{figure}
+	\includegraphics[width=1.0\linewidth]{RNAST1}
+	\centering
+\end{figure}
+\item Graph representation
+\begin{figure}
+	\includegraphics[width=0.8\linewidth]{RNAST2}
+	\centering
+\end{figure}
+%fold into a circle continue fold it into a 2D structure
+%stem and loop
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Tree Representation of the RNA Secondary Structure}
+\begin{itemize}
+\item Base pair labelling
+\begin{table}
+			\centering
+			\begin{tabular}{l l}
+				\toprule
+				\textbf{Base Pairs} & \textbf{Label}\\
+				\midrule
+				$A = U$ & F\\
+				$G \equiv C$ & J\\
+				$U = A$ & P\\
+				$C \equiv G$ & M\\
+			\end{tabular}
+		\caption{The Label of Base Pair}
+\end{table}
+\item Tree representation
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Tree Representation of the RNA Secondary Structure}
+\begin{figure}
+	\includegraphics[width=0.6\linewidth]{RNAST3}
+	\centering
+\end{figure}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Experiment}
+\begin{figure}
+	\includegraphics[width=1.0\linewidth]{AlcaligenesString}
+	\centering
+\end{figure}
+\begin{figure}
+	\includegraphics[width=1.0\linewidth]{StreptomycesString}
+	\centering
+\end{figure}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Experiment}
 
 \end{frame}
-
+%------------------------------------------------
 \subsection{Time Complexity}
 \begin{frame}
 \frametitle{Time Complexity(Naive Algorithm)}
