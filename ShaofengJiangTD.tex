@@ -97,12 +97,12 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[Trees Edit Distance]{Algorithms for the Edit Distance Between Trees} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[Trees Edit Distance]{Optimal Decomposition Strategy For Tree Edit Distance} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Shaofeng Jiang} % Your name
 \institute[Western University] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
-Western University \\ % Your institution for the title page
+Supervised By Dr. Kaizhong Zhang\\ % Your institution for the title page
 \medskip
 \textit{sjian7@uwo.ca} % Your email address
 }
@@ -386,7 +386,7 @@ Let $F_1$ and $F_2$ are both trees of the form $l(f) \comp t$ and $l'(f') \comp 
 d(l(f) \comp t, l'(f') \comp t') = min \begin{cases}
 	  	d(f \comp t, l'(f') \comp t') + \delta(l, \varnothing) \\ 
       	d(l(f) \comp t, f' \comp t') + \delta(\varnothing, l') \\ 
-    	d(f \comp t, f' \comp t') + \delta(l, l') & \\
+    	d(t, t') + d(l(f), l'(f')) & \\
     \end{cases}
 \end{align*}
 \begin{figure}
@@ -405,7 +405,7 @@ Let $F_1$ and $F_2$ are both trees of the form $l(f) \comp t$ and $l'(f') \comp 
 d(t \comp l(f), t' \comp l'(f')) = min \begin{cases}
 	  	d(t  \comp f, t' \comp l'(f')) + \delta(l, \varnothing) \\ 
       	d(t \comp l(f), t'  \comp f') + \delta(\varnothing, l') \\ 
-    	d(t \comp f, t' \comp f') + \delta(l, l') & \\
+    	d(t, t') + d(l(f), l'(f')) & \\
     \end{cases}
 \end{align*}
 \begin{figure}
